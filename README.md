@@ -1,6 +1,6 @@
 # Futaba
 
-TODO: Write a gem description
+A futaba-chan client library for Ruby
 
 ## Installation
 
