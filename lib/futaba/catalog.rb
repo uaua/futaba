@@ -47,11 +47,4 @@ module Futaba
         n_posts)
     end
   end
-
-  Thread = Struct.new(
-    :uri,
-    :head_letters,
-    :thumbnail_uri,
-    :n_posts
-  )
 end
