@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Futaba::VERSION
   spec.authors       = ["Kosuke Asami"]
   spec.email         = ["tfortress58@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{A futaba-chan client library for Ruby}
+  spec.summary       = %q{A futaba-chan client library for Ruby}
+  spec.homepage      = "https://github.com/co-me/futaba"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
