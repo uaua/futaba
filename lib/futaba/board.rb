@@ -7,10 +7,11 @@ module Futaba
       end
     end
 
-    attr_reader :uri
+    attr_reader :catalog, :uri
 
     def initialize(uri)
       @uri = Board.normalize_uri(uri)
+      @catalog = Catalog.new(uri)
     end
   end
 end

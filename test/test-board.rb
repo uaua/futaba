@@ -28,4 +28,11 @@ class TestBoard < Test::Unit::TestCase
       assert_equal(expected_board_uri, actual_board_uri)
     end
   end
+
+  class TestCatalog < self
+    def test_catalog
+      board = Futaba::Board.new("http://may.2chan.net/b/")
+      assert_equal(Futaba::Catalog, board.catalog.class)
+    end
+  end
 end
