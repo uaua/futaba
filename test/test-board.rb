@@ -18,8 +18,8 @@ class TestBoard < Test::Unit::TestCase
     URI_PATTERNS.each do |uri|
       method_name = generate_test_name(uri)
       define_method(method_name) do
-        may = Futaba::Board.new(uri)
-        assert_uri(may.uri)
+        board = Futaba::Board.new(uri)
+        assert_uri(board.uri)
       end
     end
 
