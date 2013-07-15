@@ -22,8 +22,16 @@ module Futaba
       fetch
     end
 
+    def order_type
+      @order_type || :default
+    end
+
+    def set_order(order_type)
+      tap { @order_type = order_type }
+    end
+
     private
-    def fetch(order_type: :default, n_letters: 0, n_threads: -1)
+    def fetch(n_letters: 0, n_threads: -1)
       uri = make_fetch_uri(order_type, n_letters, n_threads)
 
       threads = []
