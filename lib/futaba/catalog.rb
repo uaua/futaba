@@ -30,6 +30,14 @@ module Futaba
       tap { @order_type = order_type }
     end
 
+    def n_letters
+      @n_letters || 0
+    end
+
+    def set_letters(n_letters)
+      tap { @n_letters = n_letters }
+    end
+
     private
     def fetch(n_letters: 0, n_threads: -1)
       uri = make_fetch_uri(order_type, n_letters, n_threads)
