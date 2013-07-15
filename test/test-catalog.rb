@@ -86,7 +86,7 @@ class TestCatalog < Test::Unit::TestCase
 
     private
     def fixture_path(basename)
-      File.join(__dir__, 'fixtures', basename)
+      File.join(File.dirname(__FILE__), 'fixtures', basename)
     end
   end
 end
