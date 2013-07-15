@@ -12,25 +12,25 @@ class TestCatalog < Test::Unit::TestCase
     data({
         "newer" => {
           :order_type => :newer,
-          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=1",
+          :expected_sort_number => 1,
         },
         "older" => {
           :order_type => :older,
-          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=2",
+          :expected_sort_number => 2,
         },
         "increasing" => {
           :order_type => :increasing,
-          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=3",
+          :expected_sort_number => 3,
         },
         "decreasing" => {
           :order_type => :decreasing,
-          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=4",
+          :expected_sort_number => 4,
         },
       })
-    def test_fetch_uri(data)
+    def test_fetch_uri_with_order_type(data)
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
       fetch_uri = catalog.send(:make_fetch_uri, data[:order_type])
-      assert_equal(data[:expected], fetch_uri)
+      assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&sort=#{data[:expected_sort_number]}", fetch_uri)
     end
   end
 
