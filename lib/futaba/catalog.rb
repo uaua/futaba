@@ -23,7 +23,7 @@ module Futaba
     end
 
     def order_type
-      @order_type || :default
+      @order_type ||= :default
     end
 
     def set_order(order_type)
@@ -31,7 +31,7 @@ module Futaba
     end
 
     def n_letters
-      @n_letters || 0
+      @n_letters ||= 0
     end
 
     def set_letters(n_letters)
@@ -39,7 +39,7 @@ module Futaba
     end
 
     def n_threads
-      @n_threads || -1
+      @n_threads ||= -1
     end
 
     def set_threads(n_threads)
