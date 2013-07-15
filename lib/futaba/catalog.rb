@@ -22,6 +22,7 @@ module Futaba
       fetch
     end
 
+    private
     def fetch(order_type: :default, n_letters: 0, n_threads: -1)
       uri = make_fetch_uri(order_type, n_letters, n_threads)
 
@@ -33,7 +34,6 @@ module Futaba
       threads
     end
 
-    private
     def extract_threads(parsed_document)
       threads = []
       parsed_document.xpath('//table[@align="center"]/tr').each do |tr|
