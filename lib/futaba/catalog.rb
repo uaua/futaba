@@ -47,7 +47,7 @@ module Futaba
     end
 
     private
-    def fetch(n_letters: 0, n_threads: -1)
+    def fetch
       uri = make_fetch_uri(order_type, n_letters, n_threads)
 
       threads = []
