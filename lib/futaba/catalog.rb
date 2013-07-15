@@ -38,6 +38,14 @@ module Futaba
       tap { @n_letters = n_letters }
     end
 
+    def n_threads
+      @n_threads || -1
+    end
+
+    def set_threads(n_threads)
+      tap { @n_threads = n_threads }
+    end
+
     private
     def fetch(n_letters: 0, n_threads: -1)
       uri = make_fetch_uri(order_type, n_letters, n_threads)
