@@ -32,6 +32,12 @@ class TestCatalog < Test::Unit::TestCase
       fetch_uri = catalog.send(:make_fetch_uri, data[:order_type], 0, 0)
       assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&sort=#{data[:expected_sort_number]}&cxyl=999x0x0", fetch_uri)
     end
+
+    def test_fetch_uri_with_n_letters
+      catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
+      fetch_uri = catalog.send(:make_fetch_uri, :default, 999, 0)
+      assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x0x999", fetch_uri)
+    end
   end
 
   class TestThreads < self
