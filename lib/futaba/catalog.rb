@@ -9,7 +9,7 @@ module Futaba
       end
     end
 
-    attr_reader :threads, :uri
+    attr_reader :uri
 
     MAX_CATALOG_SIZE = { :x => 999, :y => 999 }
 
@@ -18,13 +18,19 @@ module Futaba
       @uri = Catalog.catalog_uri(board_uri)
     end
 
+    def threads
+      fetch
+    end
+
     def fetch(order_type: :default, n_letters: 0, n_threads: -1)
       uri = make_fetch_uri(order_type, n_letters, n_threads)
 
+      threads = []
       open(uri) do |document|
         parsed_document = Nokogiri::HTML(document)
-        @threads = extract_threads(parsed_document)
+        threads = extract_threads(parsed_document)
       end
+      threads
     end
 
     private

@@ -58,8 +58,6 @@ class TestCatalog < Test::Unit::TestCase
       document = File.read(fixture_path("catalog.html"), :encoding => Encoding::Shift_JIS)
       stub(catalog).open.yields(document)
 
-      catalog.fetch
-
       assert_equal(
         [
           {:head_letters=>nil,
