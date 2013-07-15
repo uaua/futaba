@@ -16,8 +16,8 @@ module Futaba
       @uri = Catalog.catalog_uri(board_uri)
     end
 
-    def fetch(order_type: :default)
-      uri = make_fetch_uri(order_type)
+    def fetch(order_type: :default, n_letters: 0)
+      uri = make_fetch_uri(order_type, n_letters)
 
       open(uri) do |document|
         parsed_document = Nokogiri::HTML(document)
@@ -49,7 +49,7 @@ module Futaba
         n_posts)
     end
 
-    def make_fetch_uri(order_type)
+    def make_fetch_uri(order_type, n_letters)
       uri = @uri
       case order_type
       when :newer
@@ -61,7 +61,7 @@ module Futaba
       when :decreasing
         uri += "&sort=4"
       end
-      uri
+      uri += "&cxyl=10x10x#{n_letters}"
     end
   end
 end

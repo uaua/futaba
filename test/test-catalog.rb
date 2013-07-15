@@ -29,8 +29,8 @@ class TestCatalog < Test::Unit::TestCase
       })
     def test_fetch_uri_with_order_type(data)
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-      fetch_uri = catalog.send(:make_fetch_uri, data[:order_type])
-      assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&sort=#{data[:expected_sort_number]}", fetch_uri)
+      fetch_uri = catalog.send(:make_fetch_uri, data[:order_type], 0)
+      assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&sort=#{data[:expected_sort_number]}&cxyl=10x10x0", fetch_uri)
     end
   end
 
