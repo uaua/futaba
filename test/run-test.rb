@@ -7,6 +7,9 @@ test_dir = File.join(base_dir, "test")
 
 $LOAD_PATH.unshift(lib_dir)
 
+require "coveralls"
+Coveralls.wear!
+
 require "test-unit"
 
 Thread.abort_on_exception = true
