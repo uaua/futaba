@@ -8,6 +8,30 @@ class TestCatalog < Test::Unit::TestCase
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
       assert_equal("http://may.2chan.net/b/futaba.php?mode=cat", catalog.uri)
     end
+
+    data({
+        "newer" => {
+          :order_type => :newer,
+          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=1",
+        },
+        "older" => {
+          :order_type => :older,
+          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=2",
+        },
+        "increasing" => {
+          :order_type => :increasing,
+          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=3",
+        },
+        "decreasing" => {
+          :order_type => :decreasing,
+          :expected => "http://may.2chan.net/b/futaba.php?mode=cat&sort=4",
+        },
+      })
+    def test_fetch_uri(data)
+      catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
+      fetch_uri = catalog.send(:make_fetch_uri, data[:order_type])
+      assert_equal(data[:expected], fetch_uri)
+    end
   end
 
   class TestThreads < self

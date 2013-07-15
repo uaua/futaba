@@ -16,8 +16,10 @@ module Futaba
       @uri = Catalog.catalog_uri(board_uri)
     end
 
-    def fetch
-      open(@uri) do |document|
+    def fetch(order_type: :default)
+      uri = make_fetch_uri(order_type)
+
+      open(uri) do |document|
         parsed_document = Nokogiri::HTML(document)
         @threads = extract_threads(parsed_document)
       end
@@ -45,6 +47,21 @@ module Futaba
         head_letters,
         thumbnail_uri,
         n_posts)
+    end
+
+    def make_fetch_uri(order_type)
+      uri = @uri
+      case order_type
+      when :newer
+        uri += "&sort=1"
+      when :older
+        uri += "&sort=2"
+      when :increasing
+        uri += "&sort=3"
+      when :decreasing
+        uri += "&sort=4"
+      end
+      uri
     end
   end
 end
