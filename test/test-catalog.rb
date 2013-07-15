@@ -38,7 +38,7 @@ class TestCatalog < Test::Unit::TestCase
     def test_threads
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
       document = File.read(fixture_path("catalog.html"), :encoding => Encoding::Shift_JIS)
-      stub(catalog).open(catalog.uri).yields(document)
+      stub(catalog).open.yields(document)
 
       catalog.fetch
 
