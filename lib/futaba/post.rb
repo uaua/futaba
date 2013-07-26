@@ -2,14 +2,14 @@ module Futaba
   class Post
     attr_accessor :id, :title, :name, :date, :body, :image, :deleted_p
 
-    def initialize(id, title, name, date, body, image, deleted_p)
-      @id = id
-      @title = title
-      @name = name
-      @date = date
-      @body = body
-      @image = image
-      @deleted_p = deleted_p
+    def initialize
+      @id = 0
+      @title = ""
+      @name = ""
+      @date = ""
+      @body = ""
+      @image = nil
+      @deleted_p = false
     end
 
     class Image
