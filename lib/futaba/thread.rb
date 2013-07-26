@@ -83,7 +83,16 @@ module Futaba
     end
 
     def extract_image(parsed_post)
-      Post::Image.new
+      thumbnail = parsed_post.at('img')
+      return nil unless thumbnail
+
+      image = Post::Image.new
+      image.thumbnail_uri = thumbnail["src"] if thumbnail
+      image.thumbnail_height = thumbnail["height"] if thumbnail
+      image.thumbnail_width = thumbnail["width"] if thumbnail
+      image.uri = thumbnail.parent["href"] if thumbnail
+      image.size_byte = thumbnail["alt"] if thumbnail
+      image
     end
   end
 end
