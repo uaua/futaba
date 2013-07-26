@@ -13,7 +13,7 @@ module Futaba
     end
 
     class Image
-      attr_reader :uri, :size_byte,
+      attr_accessor :uri, :size_byte,
                   :thumbnail_uri, :thumbnail_height, :thumbnail_width
 
       def initialize(uri, size_byte,
