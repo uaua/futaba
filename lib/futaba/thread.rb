@@ -1,5 +1,6 @@
 require "open-uri"
 require "nokogiri"
+require "nkf"
 
 module Futaba
   class Thread
@@ -40,6 +41,49 @@ module Futaba
     end
 
     def extract_post(parsed_post, deleted_p=false)
+      post = Post.new
+      post.id = extract_id(parsed_post)
+      post.title = extract_title(parsed_post)
+      post.name = extract_name(parsed_post)
+      post.date = extract_date(parsed_post)
+      post.body = extract_body(parsed_post)
+      post.image = extract_image(parsed_post)
+      post.deleted_p = deleted_p
+      post
+    end
+
+    def extract_id(parsed_post)
+      date_and_id = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+No.(\d+)\s+del/)[0]
+      date_and_id[1]
+    end
+
+    def extract_title(parsed_post)
+      parsed_post.xpath("font")[0].text
+    end
+
+    def extract_name(parsed_post)
+      parsed_post.xpath("font")[1].text
+    end
+
+    def extract_date(parsed_post)
+      date_and_id = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+No.(\d+)\s+del/)[0]
+      date_and_id[0]
+    end
+
+    def extract_body(parsed_post)
+      body_node = parsed_post.xpath("blockquote").children
+      if body_node.children.empty?
+        body_sjis_html = body_node.to_html
+      else
+        body_sjis_html = body_node.children.to_html
+      end
+      body_sjis = body_sjis_html.gsub(/<br *\/*>/, "\n")
+      body_utf8 = NKF.nkf("-wxm0", body_sjis)
+      body_utf8
+    end
+
+    def extract_image(parsed_post)
+      Post::Image.new
     end
   end
 end
