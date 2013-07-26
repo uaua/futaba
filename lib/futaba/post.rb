@@ -14,7 +14,7 @@ module Futaba
 
     class Image
       attr_accessor :uri, :size_byte,
-                  :thumbnail_uri, :thumbnail_height, :thumbnail_width
+                    :thumbnail_uri, :thumbnail_height, :thumbnail_width
 
       def initialize(uri, size_byte,
           thumbnail_uri, thumbnail_height, thumbnail_width)
