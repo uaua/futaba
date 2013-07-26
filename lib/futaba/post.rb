@@ -1,6 +1,6 @@
 module Futaba
   class Post
-    attr_reader :id, :title, :name, :date, :body, :image, :deleted_p
+    attr_accessor :id, :title, :name, :date, :body, :image, :deleted_p
 
     def initialize(id, title, name, date, body, image, deleted_p)
       @id = id
