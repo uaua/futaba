@@ -83,17 +83,17 @@ module Futaba
     end
 
     def extract_image(parsed_post)
-      thumbnail = parsed_post.at('img')
-      return nil unless thumbnail
+      parsed_thumbnail = parsed_post.at('img')
+      return nil unless parsed_thumbnail
 
       image = Post::Image.new
-      image.uri = thumbnail.parent["href"]
-      image.size_byte = thumbnail["alt"]
+      image.uri = parsed_thumbnail.parent["href"]
+      image.size_byte = parsed_thumbnail["alt"]
 
       thumb = Post::Thumbnail.new
-      thumb.uri = thumbnail["src"]
-      thumb.height = thumbnail["height"]
-      thumb.width = thumbnail["width"]
+      thumb.uri = parsed_thumbnail["src"]
+      thumb.height = parsed_thumbnail["height"]
+      thumb.width = parsed_thumbnail["width"]
 
       image.thumbnail = thumb
       image
