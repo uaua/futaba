@@ -6,11 +6,11 @@ module Futaba
   class Thread
     attr_accessor :uri, :head_letters, :thumbnail_uri, :n_posts
 
-    def initialize(uri, head_letters, thumbnail_uri, n_posts)
-      @uri = uri
-      @head_letters = head_letters
-      @thumbnail_uri = thumbnail_uri
-      @n_posts = n_posts
+    def initialize
+      @uri = ""
+      @head_letters = ""
+      @thumbnail_uri = ""
+      @n_posts = 0
     end
 
     def posts

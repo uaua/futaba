@@ -74,11 +74,12 @@ module Futaba
       thumbnail_uri = parsed_td.at("a").at("img")["src"]
       n_posts = parsed_td.at("font").text.to_i
 
-      Futaba::Thread.new(
-        uri,
-        head_letters,
-        thumbnail_uri,
-        n_posts)
+      thread = Futaba::Thread.new
+      thread.uri = uri
+      thread.head_letters = head_letters
+      thread.thumbnail_uri = thumbnail_uri
+      thread.n_posts = n_posts
+      thread
     end
 
     def make_fetch_uri(order_type, n_letters, n_threads)
