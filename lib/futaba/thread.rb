@@ -4,7 +4,7 @@ require "nkf"
 
 module Futaba
   class Thread
-    attr_reader :uri, :head_letters, :thumbnail_uri, :n_posts
+    attr_accessor :uri, :head_letters, :thumbnail_uri, :n_posts
 
     def initialize(uri, head_letters, thumbnail_uri, n_posts)
       @uri = uri
