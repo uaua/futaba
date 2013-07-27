@@ -87,11 +87,15 @@ module Futaba
       return nil unless thumbnail
 
       image = Post::Image.new
-      image.thumbnail_uri = thumbnail["src"]
-      image.thumbnail_height = thumbnail["height"]
-      image.thumbnail_width = thumbnail["width"]
       image.uri = thumbnail.parent["href"]
       image.size_byte = thumbnail["alt"]
+
+      thumb = Post::Thumbnail.new
+      thumb.uri = thumbnail["src"]
+      thumb.height = thumbnail["height"]
+      thumb.width = thumbnail["width"]
+
+      image.thumbnail = thumb
       image
     end
   end

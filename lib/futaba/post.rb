@@ -1,4 +1,5 @@
 require "futaba/post/image"
+require "futaba/post/thumbnail"
 
 module Futaba
   class Post

@@ -60,9 +60,9 @@ class TestThread < Test::Unit::TestCase
         actual_post[:image] = {
           :uri              => post.image.uri,
           :size_byte        => post.image.size_byte,
-          :thumbnail_uri    => post.image.thumbnail_uri,
-          :thumbnail_height => post.image.thumbnail_height,
-          :thumbnail_width  => post.image.thumbnail_width,
+          :thumbnail_uri    => post.image.thumbnail.uri,
+          :thumbnail_height => post.image.thumbnail.height,
+          :thumbnail_width  => post.image.thumbnail.width,
         } if post.image
         actual_post
       end
