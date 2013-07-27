@@ -77,7 +77,7 @@ module Futaba
       thread = Futaba::Thread.new
       thread.uri = uri
       thread.head_letters = head_letters
-      thread.thumbnail_uri = thumbnail_uri
+      thread.thumbnail = thumbnail_uri
       thread.n_posts = n_posts
       thread
     end
