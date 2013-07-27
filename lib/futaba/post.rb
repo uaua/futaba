@@ -15,4 +15,3 @@ module Futaba
     end
   end
 end
-
