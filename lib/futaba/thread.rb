@@ -90,12 +90,12 @@ module Futaba
       image.uri = parsed_thumbnail.parent["href"]
       image.size_byte = parsed_thumbnail["alt"]
 
-      thumb = Post::Thumbnail.new
-      thumb.uri = parsed_thumbnail["src"]
-      thumb.height = parsed_thumbnail["height"]
-      thumb.width = parsed_thumbnail["width"]
+      thumbnail = Post::Thumbnail.new
+      thumbnail.uri = parsed_thumbnail["src"]
+      thumbnail.height = parsed_thumbnail["height"]
+      thumbnail.width = parsed_thumbnail["width"]
 
-      image.thumbnail = thumb
+      image.thumbnail = thumbnail
       image
     end
   end
