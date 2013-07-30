@@ -67,7 +67,8 @@ module Futaba
 
     def extract_date(parsed_post)
       date_and_id = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+No.(\d+)\s+del/)[0]
-      date_and_id[0]
+      raw_date = date_and_id[0]
+      DateTime.strptime(raw_date.gsub(/\(\S+\)/, ""), "%y/%m/%d%H:%M:%S")
     end
 
     def extract_body(parsed_post)

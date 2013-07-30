@@ -11,7 +11,7 @@ class TestThread < Test::Unit::TestCase
 
       expected_posts = [
         {:body=>"赤城加賀\n天龍\n\n龍田",
-          :date=>"13/07/15(月)18:47:40",
+          :date=>"2013-07-15T18:47:40+00:00",
           :deleted_p=>false,
           :id=>"205659270",
           :image=>
@@ -23,13 +23,13 @@ class TestThread < Test::Unit::TestCase
           :name=>"としあき",
           :title=>"無念"},
         {:body=>"球磨多摩\n木曽",
-          :date=>"13/07/15(日)18:47:43",
+          :date=>"2013-07-15T18:47:43+00:00",
           :deleted_p=>nil,
           :id=>"205659275",
           :name=>"としあき",
           :title=>""},
         {:body=>"川内神通那珂",
-          :date=>"13/07/15(木)18:47:46",
+          :date=>"2013-07-15T18:47:46+00:00",
           :deleted_p=>nil,
           :id=>"205659277",
           :image=>
@@ -41,7 +41,7 @@ class TestThread < Test::Unit::TestCase
           :name=>"「」",
           :title=>"無念"},
         {:body=>"書き込みをした人によって削除されました",
-          :date=>"13/07/15(火)18:47:49",
+          :date=>"2013-07-15T18:47:49+00:00",
           :deleted_p=>true,
           :id=>"205659279",
           :name=>"としあき",
@@ -53,7 +53,7 @@ class TestThread < Test::Unit::TestCase
           :id        => post.id,
           :title     => post.title,
           :name      => post.name,
-          :date      => post.date,
+          :date      => post.date.to_s,
           :body      => post.body,
           :deleted_p => post.deleted_p,
         }

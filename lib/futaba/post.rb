@@ -9,7 +9,7 @@ module Futaba
       @id = 0
       @title = ""
       @name = ""
-      @date = ""
+      @date = nil
       @body = ""
       @image = nil
       @deleted_p = false
