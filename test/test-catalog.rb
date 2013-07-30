@@ -62,15 +62,21 @@ class TestCatalog < Test::Unit::TestCase
         [
           {:head_letters=>nil,
             :n_posts=>11,
+            :thumbnail_height=>30,
             :thumbnail_uri=>"http://hoge/fuga.jpg",
+            :thumbnail_width=>50,
             :uri=>"http://may.2chan.net/b/res/0.htm"},
           {:head_letters=>"ぜかまし",
             :n_posts=>22,
+            :thumbnail_height=>25,
             :thumbnail_uri=>"http://akagi/simakaze.jpg",
+            :thumbnail_width=>30,
             :uri=>"http://may.2chan.net/b/res/1.htm"},
           {:head_letters=>nil,
             :n_posts=>33,
+            :thumbnail_height=>40,
             :thumbnail_uri=>"http://foo/bar.png",
+            :thumbnail_width=>10,
             :uri=>"http://may.2chan.net/b/res/2.htm"}
         ],
         catalog.threads.collect {|thread|
@@ -78,6 +84,8 @@ class TestCatalog < Test::Unit::TestCase
             :uri => thread.uri,
             :head_letters => thread.head_letters,
             :thumbnail_uri => thread.thumbnail.uri,
+            :thumbnail_width => thread.thumbnail.width,
+            :thumbnail_height => thread.thumbnail.height,
             :n_posts => thread.n_posts,
           }
         }

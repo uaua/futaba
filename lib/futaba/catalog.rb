@@ -74,6 +74,8 @@ module Futaba
       uri = @board_uri + parsed_td.at("a")["href"]
       head_letters = parsed_td.at("small").text if parsed_td.at("small")
       thumbnail_uri = parsed_td.at("a").at("img")["src"]
+      thumbnail_width = parsed_td.at("a").at("img")["width"].to_i
+      thumbnail_height = parsed_td.at("a").at("img")["height"].to_i
       n_posts = parsed_td.at("font").text.to_i
 
       thread = Futaba::Thread.new
@@ -83,6 +85,8 @@ module Futaba
 
       thumbnail = Futaba::Thread::Thumbnail.new
       thumbnail.uri = thumbnail_uri
+      thumbnail.width = thumbnail_width
+      thumbnail.height = thumbnail_height
 
       thread.thumbnail = thumbnail
       thread
