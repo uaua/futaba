@@ -15,7 +15,7 @@ class TestThread < Test::Unit::TestCase
           :deleted_p=>false,
           :id=>205659270,
           :image=>
-          {:size_byte=>"999 B",
+          {:size_byte=>999,
             :thumbnail_height=>"250",
             :thumbnail_uri=>"http://aaa.com/s/bbbs.png",
             :thumbnail_width=>"200",
@@ -33,7 +33,7 @@ class TestThread < Test::Unit::TestCase
           :deleted_p=>nil,
           :id=>205659277,
           :image=>
-          {:size_byte=>"9999 B",
+          {:size_byte=>9999,
             :thumbnail_height=>"550",
             :thumbnail_uri=>"http://ccc.com/s/ddds.png",
             :thumbnail_width=>"400",
