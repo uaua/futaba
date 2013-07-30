@@ -1,6 +1,8 @@
 require "open-uri"
 require "nokogiri"
 
+require "futaba/thread/thumbnail"
+
 module Futaba
   class Catalog
     class << self
@@ -77,8 +79,12 @@ module Futaba
       thread = Futaba::Thread.new
       thread.uri = uri
       thread.head_letters = head_letters
-      thread.thumbnail = thumbnail_uri
       thread.n_posts = n_posts
+
+      thumbnail = Futaba::Thread::Thumbnail.new
+      thumbnail.uri = thumbnail_uri
+
+      thread.thumbnail = thumbnail
       thread
     end
 

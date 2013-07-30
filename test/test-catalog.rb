@@ -77,7 +77,7 @@ class TestCatalog < Test::Unit::TestCase
           {
             :uri => thread.uri,
             :head_letters => thread.head_letters,
-            :thumbnail_uri => thread.thumbnail,
+            :thumbnail_uri => thread.thumbnail.uri,
             :n_posts => thread.n_posts,
           }
         }
