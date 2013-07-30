@@ -13,7 +13,7 @@ class TestThread < Test::Unit::TestCase
         {:body=>"赤城加賀\n天龍\n\n龍田",
           :date=>"2013-07-15T18:47:40+00:00",
           :deleted_p=>false,
-          :id=>"205659270",
+          :id=>205659270,
           :image=>
           {:size_byte=>"999 B",
             :thumbnail_height=>"250",
@@ -25,13 +25,13 @@ class TestThread < Test::Unit::TestCase
         {:body=>"球磨多摩\n木曽",
           :date=>"2013-07-15T18:47:43+00:00",
           :deleted_p=>nil,
-          :id=>"205659275",
+          :id=>205659275,
           :name=>"としあき",
           :title=>""},
         {:body=>"川内神通那珂",
           :date=>"2013-07-15T18:47:46+00:00",
           :deleted_p=>nil,
-          :id=>"205659277",
+          :id=>205659277,
           :image=>
           {:size_byte=>"9999 B",
             :thumbnail_height=>"550",
@@ -43,7 +43,7 @@ class TestThread < Test::Unit::TestCase
         {:body=>"書き込みをした人によって削除されました",
           :date=>"2013-07-15T18:47:49+00:00",
           :deleted_p=>true,
-          :id=>"205659279",
+          :id=>205659279,
           :name=>"としあき",
           :title=>"無念"},
       ]
