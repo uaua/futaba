@@ -16,9 +16,9 @@ class TestThread < Test::Unit::TestCase
           :id=>205659270,
           :image=>
           {:size_byte=>999,
-            :thumbnail_height=>"250",
+            :thumbnail_height=>250,
             :thumbnail_uri=>"http://aaa.com/s/bbbs.png",
-            :thumbnail_width=>"200",
+            :thumbnail_width=>200,
             :uri=>"http://aaa.com/bbb.png"},
           :name=>"としあき",
           :title=>"無念"},
@@ -34,9 +34,9 @@ class TestThread < Test::Unit::TestCase
           :id=>205659277,
           :image=>
           {:size_byte=>9999,
-            :thumbnail_height=>"550",
+            :thumbnail_height=>550,
             :thumbnail_uri=>"http://ccc.com/s/ddds.png",
-            :thumbnail_width=>"400",
+            :thumbnail_width=>400,
             :uri=>"http://ccc.com/ddd.png"},
           :name=>"「」",
           :title=>"無念"},
