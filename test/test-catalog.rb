@@ -29,32 +29,37 @@ class TestCatalog < Test::Unit::TestCase
       })
     def test_fetch_uri_with_order_type(data)
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-      fetch_uri = catalog.send(:make_fetch_uri, data[:order_type], 0, 0)
+      catalog.set_order(data[:order_type]).set_letters(0).set_threads(0)
+      fetch_uri = catalog.send(:make_fetch_uri)
       assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&sort=#{data[:expected_sort_number]}&cxyl=0x0x0", fetch_uri)
     end
 
     def test_fetch_uri_with_n_letters
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-      fetch_uri = catalog.send(:make_fetch_uri, :default, 999, 0)
+      catalog.set_order(:default).set_letters(999).set_threads(0)
+      fetch_uri = catalog.send(:make_fetch_uri)
       assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=0x0x999", fetch_uri)
     end
 
     class TestNumThreads < self
       def test_fetch_uri
         catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-        fetch_uri = catalog.send(:make_fetch_uri, :default, 999, 48273)
+        catalog.set_order(:default).set_letters(999).set_threads(48273)
+        fetch_uri = catalog.send(:make_fetch_uri)
         assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=220x220x999", fetch_uri)
       end
 
       def test_fetch_uri_max
         catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-        fetch_uri = catalog.send(:make_fetch_uri, :default, 999, -1)
+        catalog.set_order(:default).set_letters(999).set_threads(-1)
+        fetch_uri = catalog.send(:make_fetch_uri)
         assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x999x999", fetch_uri)
       end
 
       def test_fetch_uri_too_big
         catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-        fetch_uri = catalog.send(:make_fetch_uri, :default, 999, 1000000)
+        catalog.set_order(:default).set_letters(999).set_threads(1000000)
+        fetch_uri = catalog.send(:make_fetch_uri)
         assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x999x999", fetch_uri)
       end
     end

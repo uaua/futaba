@@ -50,7 +50,7 @@ module Futaba
 
     private
     def fetch
-      uri = make_fetch_uri(order_type, n_letters, n_threads)
+      uri = make_fetch_uri
 
       threads = []
       open(uri) do |document|
@@ -107,7 +107,7 @@ module Futaba
       thread
     end
 
-    def make_fetch_uri(order_type, n_letters, n_threads)
+    def make_fetch_uri
       uri = @uri
       case order_type
       when :newer
