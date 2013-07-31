@@ -45,7 +45,7 @@ module Futaba
       posts << extract_post(thread_body) # there are parent post in top structure
 
       thread_body.xpath("table").each do |table|
-        deleted_p = (table["class"] && (table["class"] == "deleted"))
+        deleted_p = (table["class"] && (table["class"] == "deleted")) || false
         parsed_post = table.xpath("tr/td")
         posts << extract_post(parsed_post, deleted_p)
       end
