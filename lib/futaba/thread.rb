@@ -21,6 +21,7 @@ module Futaba
           puts "Thread disappeared: #{@uri}\n"
         else
           puts "Error: #{@uri}\n"
+          p error
         end
       rescue => error
         puts "Error: #{@uri}\n"
