@@ -32,6 +32,7 @@ class TestThread < Test::Unit::TestCase
           :date=>"2013-07-15T18:47:46+00:00",
           :deleted_p=>false,
           :no=>205659277,
+          :id=>"5rwACGI2",
           :image=>
           {:size_byte=>9999,
             :thumbnail_height=>550,
@@ -57,6 +58,7 @@ class TestThread < Test::Unit::TestCase
           :body      => post.body,
           :deleted_p => post.deleted_p,
         }
+        actual_post[:id] = post.id if post.id
         actual_post[:image] = {
           :uri              => post.image.uri,
           :size_byte        => post.image.size_byte,
