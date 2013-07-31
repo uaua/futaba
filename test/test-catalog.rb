@@ -108,6 +108,15 @@ class TestCatalog < Test::Unit::TestCase
       )
     end
 
+    def test_number_of_threads
+      catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
+      catalog.set_threads(2)
+      document = File.read(fixture_path("catalog.html"), :encoding => Encoding::Shift_JIS)
+      stub(catalog).open.yields(document)
+
+      assert_equal(2, catalog.threads.size)
+    end
+
     private
     def fixture_path(basename)
       File.join(File.dirname(__FILE__), 'fixtures', basename)

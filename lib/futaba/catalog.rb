@@ -64,6 +64,15 @@ module Futaba
       threads = []
       parsed_document.xpath('//table[@align="center"]/tr').each do |tr|
         tr.xpath('td').each do |td|
+          if n_threads < 0
+            if threads.size >= MAX_CATALOG_SIZE[:x] * MAX_CATALOG_SIZE[:y]
+              break
+            end
+          else
+            if threads.size >= n_threads
+              break
+            end
+          end
           threads << extract_thread(td)
         end
       end
