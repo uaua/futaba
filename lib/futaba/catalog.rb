@@ -111,8 +111,18 @@ module Futaba
         uri += "&sort=4"
       end
       max_p = n_threads < 0
-      x = MAX_CATALOG_SIZE[:x]
-      y = max_p ? MAX_CATALOG_SIZE[:y] : (n_threads / x.to_f).ceil
+      max_p ||= n_threads > MAX_CATALOG_SIZE[:x] * MAX_CATALOG_SIZE[:y]
+      if max_p
+        x = MAX_CATALOG_SIZE[:x]
+        y = MAX_CATALOG_SIZE[:y]
+      else
+        x = Math.sqrt(n_threads).ceil
+        if x > 0
+          y = (n_threads / x.to_f).ceil
+        else
+          y = 0
+        end
+      end
       uri += "&cxyl=#{x}x#{y}x#{n_letters}"
     end
   end
