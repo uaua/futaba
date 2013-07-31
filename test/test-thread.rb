@@ -25,6 +25,7 @@ class TestThread < Test::Unit::TestCase
         {:body=>"球磨多摩\n木曽",
           :date=>"2013-07-15T18:47:43+00:00",
           :deleted_p=>false,
+          :mailto=>"sage",
           :no=>205659275,
           :name=>"としあき",
           :title=>""},
@@ -59,6 +60,7 @@ class TestThread < Test::Unit::TestCase
           :deleted_p => post.deleted_p,
         }
         actual_post[:id] = post.id if post.id
+        actual_post[:mailto] = post.mailto if post.mailto
         actual_post[:image] = {
           :uri              => post.image.uri,
           :size_byte        => post.image.size_byte,

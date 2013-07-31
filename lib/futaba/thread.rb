@@ -60,6 +60,7 @@ module Futaba
       post.title = extract_title(parsed_post)
       post.name = extract_name(parsed_post)
       post.id = extract_id(parsed_post)
+      post.mailto = extract_mailto(parsed_post)
       post.date = extract_date(parsed_post)
       post.body = extract_body(parsed_post)
       post.image = extract_image(parsed_post)
@@ -85,6 +86,15 @@ module Futaba
       date_and_id_and_no = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/)[0]
       raw_id = date_and_id_and_no[1]
       raw_id
+    end
+
+    def extract_mailto(parsed_post)
+      mailto_href = parsed_post.xpath("font")[1].at('a[href ^="mailto:"]/@href')
+      if mailto_href
+        mailto_href.value.scan(/mailto:(\S+)/).flatten[0]
+      else
+        nil
+      end
     end
 
     def extract_date(parsed_post)
