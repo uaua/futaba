@@ -40,17 +40,17 @@ class TestCatalog < Test::Unit::TestCase
     end
 
     class TestNumThreads < self
-    def test_fetch_uri_with_n_threads
-      catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-      fetch_uri = catalog.send(:make_fetch_uri, :default, 999, 48273)
-      assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x49x999", fetch_uri)
-    end
+      def test_fetch_uri_with_n_threads
+        catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
+        fetch_uri = catalog.send(:make_fetch_uri, :default, 999, 48273)
+        assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x49x999", fetch_uri)
+      end
 
-    def test_fetch_uri_with_n_threads_max
-      catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-      fetch_uri = catalog.send(:make_fetch_uri, :default, 999, -1)
-      assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x999x999", fetch_uri)
-    end
+      def test_fetch_uri_with_n_threads_max
+        catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
+        fetch_uri = catalog.send(:make_fetch_uri, :default, 999, -1)
+        assert_equal("http://may.2chan.net/b/futaba.php?mode=cat&cxyl=999x999x999", fetch_uri)
+      end
     end
   end
 
