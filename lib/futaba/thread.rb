@@ -23,9 +23,11 @@ module Futaba
           puts "Error: #{@uri}\n"
           p error
         end
+        []
       rescue => error
         puts "Error: #{@uri}\n"
         p error
+        []
       end
     end
 
