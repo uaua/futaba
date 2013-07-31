@@ -77,17 +77,25 @@ class TestCatalog < Test::Unit::TestCase
             :thumbnail_height=>40,
             :thumbnail_uri=>"http://foo/bar.png",
             :thumbnail_width=>10,
-            :uri=>"http://may.2chan.net/b/res/2.htm"}
+            :uri=>"http://may.2chan.net/b/res/2.htm"},
+          {:head_letters=>"大和",
+            :n_posts=>20,
+            :uri=>"http://may.2chan.net/b/res/3.htm"},
         ],
         catalog.threads.collect {|thread|
-          {
+          actual_thread = {
             :uri => thread.uri,
             :head_letters => thread.head_letters,
-            :thumbnail_uri => thread.thumbnail.uri,
-            :thumbnail_width => thread.thumbnail.width,
-            :thumbnail_height => thread.thumbnail.height,
             :n_posts => thread.n_posts,
           }
+
+          if thread.thumbnail
+            actual_thread[:thumbnail_uri] = thread.thumbnail.uri
+            actual_thread[:thumbnail_width] = thread.thumbnail.width
+            actual_thread[:thumbnail_height] = thread.thumbnail.height
+          end
+
+          actual_thread
         }
       )
     end
