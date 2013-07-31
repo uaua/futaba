@@ -15,13 +15,13 @@ module Futaba
 
     def posts
       begin
-      fetch
+        fetch
       rescue OpenURI::HTTPError => error
-      if error.message =~ /404/
-        puts "Thread disappeared: #{@uri}\n"
-      else
-        puts "Error: #{@uri}\n"
-      end
+        if error.message =~ /404/
+          puts "Thread disappeared: #{@uri}\n"
+        else
+          puts "Error: #{@uri}\n"
+        end
       end
     end
 
