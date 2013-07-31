@@ -70,9 +70,29 @@ class TestThread < Test::Unit::TestCase
       assert_equal(expected_posts, actual_posts)
     end
 
+    def test_posts_raise_httperror
+      thread = Futaba::Thread.new
+      thread.uri = "http://foobar.com/thread.htm"
+      stub(thread).open do
+        raise OpenURI::HTTPError.new("404 Not Found", StringIO.new)
+      end
+      assert_equal("Thread disappeared: #{thread.uri}", hook_stdout{thread.posts}.chomp)
+    end
+
     private
     def fixture_path(basename)
       File.join(File.dirname(__FILE__), 'fixtures', basename)
+    end
+
+    def hook_stdout
+      begin
+        old_stdout = $stdout
+        $stdout = StringIO.new
+        yield
+        $stdout.string
+      ensure
+        $stdout = old_stdout
+      end
     end
   end
 end
