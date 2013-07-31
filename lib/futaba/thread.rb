@@ -53,9 +53,15 @@ module Futaba
     end
 
     def extract_id(parsed_post)
-      date_and_id = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+No.(\d+)\s+del/)[0]
-      raw_id = date_and_id[1]
-      raw_id.to_i
+      if parsed_post.text.index(/ID:\S+/)
+        date_and_id_and_no = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+ID:(\S+)\s+No.(\d+)\s+del/)[0]
+        raw_id = date_and_id_and_no[2]
+        raw_id.to_i
+      else
+        date_and_id = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+No.(\d+)\s+del/)[0]
+        raw_id = date_and_id[1]
+        raw_id.to_i
+      end
     end
 
     def extract_title(parsed_post)
