@@ -3,10 +3,10 @@ require "futaba/post/thumbnail"
 
 module Futaba
   class Post
-    attr_accessor :id, :title, :name, :date, :body, :image, :deleted_p
+    attr_accessor :no, :title, :name, :date, :body, :image, :deleted_p
 
     def initialize
-      @id = 0
+      @no = 0
       @title = ""
       @name = ""
       @date = nil

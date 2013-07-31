@@ -42,7 +42,7 @@ module Futaba
 
     def extract_post(parsed_post, deleted_p=false)
       post = Post.new
-      post.id = extract_id(parsed_post)
+      post.no = extract_no(parsed_post)
       post.title = extract_title(parsed_post)
       post.name = extract_name(parsed_post)
       post.date = extract_date(parsed_post)
@@ -52,10 +52,10 @@ module Futaba
       post
     end
 
-    def extract_id(parsed_post)
+    def extract_no(parsed_post)
       date_and_id_and_no = parsed_post.text.scan(/Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/)[0]
-      raw_id = date_and_id_and_no[2]
-      raw_id.to_i
+      raw_no = date_and_id_and_no[2]
+      raw_no.to_i
     end
 
     def extract_title(parsed_post)
