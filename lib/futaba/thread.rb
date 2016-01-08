@@ -37,7 +37,7 @@ module Futaba
     def fetch
       posts = []
       open(@uri) do |document|
-        parsed_document = Nokogiri::HTML(document)
+        parsed_document = Nokogiri::HTML(NKF.nkf("-wxm0", document))
         posts = extract_posts(parsed_document)
       end
       posts
@@ -107,14 +107,16 @@ module Futaba
 
     def extract_body(parsed_post)
       body_node = parsed_post.xpath("blockquote").children
-      if body_node.children.empty?
-        body_sjis_html = body_node.to_html
-      else
-        body_sjis_html = body_node.children.to_html
-      end
-      body_sjis = body_sjis_html.gsub(/<br *\/*>/, "\n")
-      body_utf8 = NKF.nkf("-wxm0", body_sjis)
-      body_utf8
+
+      body = body_node.collect { |node|
+        if node.name == "br"
+          "\n"
+        else
+          node.text
+        end
+      }.join
+
+      body
     end
 
     def extract_image(parsed_post)

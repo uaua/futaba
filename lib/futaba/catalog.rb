@@ -1,5 +1,6 @@
 require "open-uri"
 require "nokogiri"
+require "nkf"
 
 require "futaba/thread/thumbnail"
 
@@ -54,7 +55,7 @@ module Futaba
 
       threads = []
       open(uri) do |document|
-        parsed_document = Nokogiri::HTML(document)
+        parsed_document = Nokogiri::HTML(NKF.nkf("-wxm0", document))
         threads = extract_threads(parsed_document)
       end
       threads
