@@ -1,6 +1,5 @@
 require "open-uri"
 require "nokogiri"
-require "nkf"
 
 module Futaba
   class Thread

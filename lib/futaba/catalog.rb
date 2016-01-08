@@ -1,6 +1,5 @@
 require "open-uri"
 require "nokogiri"
-require "nkf"
 
 require "futaba/thread/thumbnail"
 
