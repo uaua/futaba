@@ -45,7 +45,7 @@ module Futaba
 
     def extract_posts(parsed_document)
       posts = []
-      thread_body = parsed_document.xpath('//form[not(@id="fm")]')
+      thread_body = parsed_document.xpath('//form[not(@enctype="multipart/form-data")]')
       posts << extract_post(thread_body) # there are parent post in top structure
 
       thread_body.xpath("table").each do |table|
