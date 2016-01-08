@@ -36,8 +36,8 @@ module Futaba
     private
     def fetch
       posts = []
-      open(@uri) do |document|
-        parsed_document = Nokogiri::HTML(NKF.nkf("-wxm0", document))
+      open(uri, "r:CP932") do |document|
+        parsed_document = Nokogiri::HTML(document.read.encode("cp932", invalid: :replace, undef: :replace))
         posts = extract_posts(parsed_document)
       end
       posts

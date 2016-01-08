@@ -54,8 +54,8 @@ module Futaba
       uri = make_fetch_uri
 
       threads = []
-      open(uri) do |document|
-        parsed_document = Nokogiri::HTML(NKF.nkf("-wxm0", document))
+      open(uri, "r:CP932") do |document|
+        parsed_document = Nokogiri::HTML(document.read.encode("cp932", invalid: :replace, undef: :replace))
         threads = extract_threads(parsed_document)
       end
       threads
