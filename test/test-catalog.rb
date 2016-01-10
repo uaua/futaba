@@ -68,7 +68,7 @@ class TestCatalog < Test::Unit::TestCase
   class TestThreads < self
     def test_threads
       catalog = Futaba::Catalog.new("http://may.2chan.net/b/")
-      document = File.read(fixture_path("catalog.html"), :encoding => Encoding::Shift_JIS)
+      document = File.open(fixture_path("catalog.html"), :encoding => Encoding::CP932)
       stub(catalog).open.yields(document)
 
       assert_equal(

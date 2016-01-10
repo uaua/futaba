@@ -6,7 +6,7 @@ class TestThread < Test::Unit::TestCase
   class TestPosts < self
     def test_posts
       thread = Futaba::Thread.new
-      document =  File.read(fixture_path("thread.html"), :encoding => Encoding::Shift_JIS)
+      document =  File.read(fixture_path("thread.html"), :encoding => Encoding::Windows_31J)
       stub(thread).open.yields(document)
 
       expected_posts = [
