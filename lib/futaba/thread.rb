@@ -38,7 +38,7 @@ module Futaba
     private
     def fetch
       posts = []
-      open(uri, "r:binary", :proxy=>"http://localhost:5432") do |document|
+      open(uri, "r:binary") do |document|
         parsed_document = Nokogiri::HTML(document.read.encode("utf-8", "cp932", invalid: :replace, undef: :replace))
         posts = extract_posts(parsed_document)
       end
