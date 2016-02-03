@@ -3,7 +3,9 @@ require "nokogiri"
 
 module Futaba
   class Thread
-    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
+    # DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
+    # DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
+    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del/
 
     attr_accessor :uri, :head_letters, :thumbnail, :n_posts
 
@@ -28,6 +30,7 @@ module Futaba
       rescue => error
         puts "Error: #{@uri}\n"
         p error
+        STDERR.puts error.backtrace.join("\n")
         []
       end
     end
@@ -35,7 +38,7 @@ module Futaba
     private
     def fetch
       posts = []
-      open(uri, "r:binary") do |document|
+      open(uri, "r:binary", :proxy=>"http://localhost:5432") do |document|
         parsed_document = Nokogiri::HTML(document.read.encode("utf-8", "cp932", invalid: :replace, undef: :replace))
         posts = extract_posts(parsed_document)
       end
@@ -61,6 +64,7 @@ module Futaba
       post.title = extract_title(parsed_post)
       post.name = extract_name(parsed_post)
       post.id = extract_id(parsed_post)
+      post.ip = extract_ip(parsed_post)
       post.mailto = extract_mailto(parsed_post)
       post.date = extract_date(parsed_post)
       post.body = extract_body(parsed_post)
@@ -71,7 +75,7 @@ module Futaba
 
     def extract_no(parsed_post)
       date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_no = date_and_id_and_no[2]
+      raw_no = date_and_id_and_no[3]
       raw_no.to_i
     end
 
@@ -83,9 +87,15 @@ module Futaba
       parsed_post.xpath("font")[1].text
     end
 
+    def extract_ip(parsed_post)
+      date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
+      raw_ip = date_and_id_and_no[3]
+      raw_ip
+    end
+
     def extract_id(parsed_post)
       date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_id = date_and_id_and_no[1]
+      raw_id = date_and_id_and_no[2]
       raw_id
     end
 
@@ -114,7 +124,7 @@ module Futaba
           node.text
         end
       }.join
-
+      
       body
     end
 
