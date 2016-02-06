@@ -89,7 +89,7 @@ module Futaba
 
     def extract_ip(parsed_post)
       date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_ip = date_and_id_and_no[3]
+      raw_ip = date_and_id_and_no[1]
       raw_ip
     end
 
