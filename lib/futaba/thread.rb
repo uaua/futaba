@@ -1,3 +1,4 @@
+# coding: utf-8
 require "open-uri"
 require "nokogiri"
 
@@ -5,7 +6,7 @@ module Futaba
   class Thread
     # DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
     # DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
-    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del/
+    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del\s+(?:そうだねx(\d+))?/
 
     attr_accessor :uri, :head_letters, :thumbnail, :n_posts
 
@@ -70,7 +71,14 @@ module Futaba
       post.body = extract_body(parsed_post)
       post.image = extract_image(parsed_post)
       post.deleted_p = deleted_p
+      post.soudane = extract_soudane(parsed_post)
       post
+    end
+
+    def extract_soudane(parsed_post)
+      date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
+      raw_no = date_and_id_and_no[4]
+      raw_no.to_i
     end
 
     def extract_no(parsed_post)
