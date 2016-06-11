@@ -4,9 +4,7 @@ require "nokogiri"
 
 module Futaba
   class Thread
-    # DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
-    # DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)\s+(?:ID:(\S+)\s+)?No.(\d+)\s+del/
-    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del\s+(?:そうだねx(\d+))?/
+    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del/
 
     attr_accessor :uri, :head_letters, :thumbnail, :n_posts
 
@@ -48,12 +46,12 @@ module Futaba
 
     def extract_posts(parsed_document)
       posts = []
-      thread_body = parsed_document.xpath('//form[not(@enctype="multipart/form-data")]')
+      thread_body = parsed_document.xpath('//div[@class = "thre"]')
       posts << extract_post(thread_body) # there are parent post in top structure
 
       thread_body.xpath("table").each do |table|
         deleted_p = (table["class"] && (table["class"] == "deleted")) || false
-        parsed_post = table.xpath("tr/td")
+        parsed_post = table.xpath('tr/td[@class = "rtd"]')
         posts << extract_post(parsed_post, deleted_p)
       end
       posts
@@ -76,9 +74,12 @@ module Futaba
     end
 
     def extract_soudane(parsed_post)
-      date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_no = date_and_id_and_no[4]
-      raw_no.to_i
+      soudane = parsed_post.xpath('a[@class = "sod"]')
+      if s = soudane.text.match(/そうだねx(\d+)/)
+        s[1].to_i
+      else
+        0
+      end
     end
 
     def extract_no(parsed_post)
