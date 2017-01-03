@@ -135,7 +135,7 @@ module Futaba
       return nil unless parsed_thumbnail
 
       image = Post::Image.new
-      image.uri = parsed_thumbnail.parent["href"]
+      image.uri = "#{@url}#{parsed_thumbnail.parent["href"]}"
       size_byte_raw = parsed_thumbnail["alt"]
       image.size_byte = size_byte_raw.scan(/(\d+)\s+B/).flatten[0].to_i
 
