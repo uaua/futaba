@@ -88,7 +88,7 @@ module Futaba
 
       thread = Futaba::Thread.new
       thread.uri = uri
-      thread.head_letters = head_letters
+      thread.head_letters = head_letters || ""
       thread.n_posts = n_posts
 
       thread.thumbnail = nil

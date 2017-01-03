@@ -127,17 +127,7 @@ module Futaba
     end
 
     def extract_body(parsed_post)
-      body_node = parsed_post.xpath("blockquote").children
-
-      body = body_node.collect { |node|
-        if node.name == "br"
-          "\n"
-        else
-          node.text
-        end
-      }.join
-      
-      body
+      parsed_post.xpath("blockquote").inner_html
     end
 
     def extract_image(parsed_post)
