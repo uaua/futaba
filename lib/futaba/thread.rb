@@ -17,6 +17,8 @@ module Futaba
 
     def posts
       begin
+        p = URI.parse(@uri)
+        @url = "#{p.scheme}://#{p.host}"
         fetch
       rescue OpenURI::HTTPError => error
         if error.message =~ /404/
@@ -148,7 +150,7 @@ module Futaba
       image.size_byte = size_byte_raw.scan(/(\d+)\s+B/).flatten[0].to_i
 
       thumbnail = Post::Thumbnail.new
-      thumbnail.uri = parsed_thumbnail["src"]
+      thumbnail.uri = "#{@url}#{parsed_thumbnail["src"]}"
       thumbnail.height = parsed_thumbnail["height"].to_i
       thumbnail.width = parsed_thumbnail["width"].to_i
 
