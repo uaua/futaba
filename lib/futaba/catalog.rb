@@ -21,6 +21,8 @@ module Futaba
     end
 
     def threads
+      p = URI.parse(@uri)
+      @url = "#{p.scheme}://#{p.host}"
       fetch
     end
 
@@ -92,16 +94,16 @@ module Futaba
       thread.thumbnail = nil
       parsed_thumbnail = parsed_td.at("a").at("img")
       if parsed_thumbnail
-      thumbnail_uri = parsed_td.at("a").at("img")["src"]
-      thumbnail_width = parsed_td.at("a").at("img")["width"].to_i
-      thumbnail_height = parsed_td.at("a").at("img")["height"].to_i
+        thumbnail_uri = "#{@url}#{parsed_td.at("a").at("img")["src"]}"
+        thumbnail_width = parsed_td.at("a").at("img")["width"].to_i
+        thumbnail_height = parsed_td.at("a").at("img")["height"].to_i
 
-      thumbnail = Futaba::Thread::Thumbnail.new
-      thumbnail.uri = thumbnail_uri
-      thumbnail.width = thumbnail_width
-      thumbnail.height = thumbnail_height
+        thumbnail = Futaba::Thread::Thumbnail.new
+        thumbnail.uri = thumbnail_uri
+        thumbnail.width = thumbnail_width
+        thumbnail.height = thumbnail_height
 
-      thread.thumbnail = thumbnail
+        thread.thumbnail = thumbnail
       end
 
       thread
