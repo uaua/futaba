@@ -6,9 +6,10 @@ module Futaba
   class Thread
     DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del/
 
-    attr_accessor :uri, :head_letters, :thumbnail, :n_posts
+    attr_accessor :id, :uri, :head_letters, :thumbnail, :n_posts
 
     def initialize
+      @id = ""
       @uri = ""
       @head_letters = ""
       @thumbnail = ""

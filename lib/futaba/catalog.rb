@@ -82,11 +82,13 @@ module Futaba
     end
 
     def extract_thread(parsed_td)
+      id = (parsed_td.at("a")["href"] =~ /res\/(\d*).htm/) && $1
       uri = @board_uri + parsed_td.at("a")["href"]
       head_letters = parsed_td.at("small").text if parsed_td.at("small")
       n_posts = parsed_td.at("font").text.to_i
 
       thread = Futaba::Thread.new
+      thread.id = id
       thread.uri = uri
       thread.head_letters = head_letters || ""
       thread.n_posts = n_posts
