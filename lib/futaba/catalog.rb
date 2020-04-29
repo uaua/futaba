@@ -122,6 +122,10 @@ module Futaba
         uri += "&sort=3"
       when :decreasing
         uri += "&sort=4"
+      when :volatility
+        uri += "&sort=6"
+      when :soudane
+        uri += "&sort=8"
       end
       max_p = n_threads < 0
       max_p ||= n_threads > MAX_CATALOG_SIZE[:x] * MAX_CATALOG_SIZE[:y]

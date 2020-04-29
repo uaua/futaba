@@ -1,10 +1,11 @@
 # coding: utf-8
 require "open-uri"
 require "nokogiri"
+require "openssl"
 
 module Futaba
   class Thread
-    DATE_ID_NO_PATTERN = /Name\s+\S*\s+(\d+\/\d+\/\d+\(\S+\)\d+:\d+:\d+)\s+(?:IP:(\S+)\s+)?(?:ID:(\S+)\s+)?No.(\d+)\s+del/
+    DATE_ID_PATTERN = /(\d\d\/\d\d\/\d\d\(\S\)\d\d:\d\d:\d\d)\s?(?:ID:(\S+))?(?:IP:(\S+))?/
 
     attr_accessor :id, :uri, :head_letters, :thumbnail, :n_posts
 
@@ -77,52 +78,36 @@ module Futaba
     end
 
     def extract_soudane(parsed_post)
-      soudane = parsed_post.xpath('a[@class = "sod"]')
-      if s = soudane.text.match(/そうだねx(\d+)/)
-        s[1].to_i
-      else
-        0
-      end
+      parsed_post.xpath('a[@class = "sod"]')&.text&.match(/そうだねx(\d+)/)&.to_a&.at(1)&.to_i || 0
     end
 
     def extract_no(parsed_post)
-      date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_no = date_and_id_and_no[3]
-      raw_no.to_i
+      # skip "No."
+      parsed_post.xpath('span[@class="cno"]').text[3..].to_i
     end
 
     def extract_title(parsed_post)
-      parsed_post.xpath("font")[0].text
+      parsed_post.xpath('span[@class="csb"]').text
     end
 
     def extract_name(parsed_post)
-      parsed_post.xpath("font")[1].text
+      parsed_post.xpath('span[@class="cnm"]').text
     end
 
     def extract_ip(parsed_post)
-      date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_ip = date_and_id_and_no[1]
-      raw_ip
+      parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN)[2]
     end
 
     def extract_id(parsed_post)
-      date_and_id_and_no = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_id = date_and_id_and_no[2]
-      raw_id
+      parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN)[1]
     end
 
     def extract_mailto(parsed_post)
-      mailto_href = parsed_post.xpath("font")[1].at('a[href ^="mailto:"]/@href')
-      if mailto_href
-        mailto_href.value.scan(/mailto:(\S+)/).flatten[0]
-      else
-        nil
-      end
+      parsed_post.xpath('span[@class="cnm"]').at('a[href ^="mailto:"]/@href')&.value&.scan(/mailto:(\S+)/)&.flatten&.first
     end
 
     def extract_date(parsed_post)
-      date_and_id = parsed_post.text.scan(DATE_ID_NO_PATTERN)[0]
-      raw_date = date_and_id[0]
+      raw_date = parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN)[0][0]
       raw_date << " +0900"
       DateTime.strptime(raw_date.gsub(/\(\S+\)/, ""), "%y/%m/%d%H:%M:%S %z")
     end
