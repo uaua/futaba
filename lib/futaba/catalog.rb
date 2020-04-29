@@ -20,10 +20,10 @@ module Futaba
       @uri = Catalog.catalog_uri(board_uri)
     end
 
-    def threads
+    def threads(options)
       p = URI.parse(@uri)
       @url = "#{p.scheme}://#{p.host}"
-      fetch
+      fetch(options)
     end
 
     def order_type
@@ -51,11 +51,11 @@ module Futaba
     end
 
     private
-    def fetch
+    def fetch(options)
       uri = make_fetch_uri
 
       threads = []
-      open(uri, "r:binary") do |document|
+      OpenURI.open_uri(uri, "r:binary", options) do |document|
         parsed_document = Nokogiri::HTML(document.read.encode("utf-8", "cp932", invalid: :replace, undef: :replace))
         threads = extract_threads(parsed_document)
       end

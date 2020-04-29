@@ -17,11 +17,11 @@ module Futaba
       @n_posts = 0
     end
 
-    def posts
+    def posts(options)
       begin
         p = URI.parse(@uri)
         @url = "#{p.scheme}://#{p.host}"
-        fetch
+        fetch(options)
       rescue OpenURI::HTTPError => error
         if error.message =~ /404/
           puts "Thread disappeared: #{@uri}\n"
@@ -39,9 +39,9 @@ module Futaba
     end
 
     private
-    def fetch
+    def fetch(options)
       posts = []
-      open(uri, "r:binary") do |document|
+      OpenURI.open_uri(uri, "r:binary", options) do |document|
         parsed_document = Nokogiri::HTML(document.read.encode("utf-8", "cp932", invalid: :replace, undef: :replace))
         posts = extract_posts(parsed_document)
       end
