@@ -95,11 +95,11 @@ module Futaba
     end
 
     def extract_ip(parsed_post)
-      parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN)[2]
+      parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN).first[2]
     end
 
     def extract_id(parsed_post)
-      parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN)[1]
+      parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN).first[1]
     end
 
     def extract_mailto(parsed_post)
@@ -107,7 +107,7 @@ module Futaba
     end
 
     def extract_date(parsed_post)
-      raw_date = parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN)[0][0]
+      raw_date = parsed_post.xpath('span[@class="cnw"]').text.scan(DATE_ID_PATTERN).first[0]
       raw_date << " +0900"
       DateTime.strptime(raw_date.gsub(/\(\S+\)/, ""), "%y/%m/%d%H:%M:%S %z")
     end
